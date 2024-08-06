@@ -1,0 +1,21 @@
+services:
+  postgres-db:
+    image: postgres:16.2-alpine3.19
+    container_name: "computer_store-db"
+    restart: unless-stopped
+    volumes:
+      - db_volume:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+      POSTGRES_DB: "computer_store"
+    ports:
+      - "5432:5432"
+  sonarqube:
+    image: sonarqube:latest
+    container_name: "sonar"
+    restart: unless-stopped
+    ports:
+      - "9000:9000"
+volumes:
+  db_volume:
