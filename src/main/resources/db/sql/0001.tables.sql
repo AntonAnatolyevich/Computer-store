@@ -1,6 +1,6 @@
 CREATE TABLE equipment_type (
-                                    id uuid PRIMARY KEY,
-                                    type_name text
+    id uuid PRIMARY KEY,
+    type_name text
 );
 
 CREATE TABLE equipment (
