@@ -21,7 +21,7 @@ public class EquipmentTypeController {
         return null;
     }
 
-    @PostMapping("/{id}")
+    @PostMapping("")
     public String addNewEquipmentType() {
         return null;
     }

@@ -8,6 +8,7 @@ plugins {
     id("com.diffplug.spotless") version "6.25.0"
     id("org.sonarqube") version "4.4.1.3373"
     id("jacoco")
+    id("net.ltgt.apt") version "0.21"
 }
 
 group = "ru.akhramenko"
@@ -45,6 +46,10 @@ dependencies {
     testImplementation("org.testcontainers:junit-jupiter")
     testImplementation("org.testcontainers:postgresql")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+
+    implementation("org.mapstruct:mapstruct:1.5.5.Final")
+    // testImplementation ("org.testng:testng:6.10", "org.easytesting:fest-assert:1.4")
+    annotationProcessor("org.mapstruct:mapstruct-processor:1.5.5.Final")
 }
 
 tasks.withType<Test> {

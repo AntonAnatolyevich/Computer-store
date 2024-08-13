@@ -1,7 +1,7 @@
-package ru.akhramenko.computerstore.model;
+package ru.akhramenko.computerstore.entity;
 
 import jakarta.persistence.*;
-import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,12 +21,12 @@ public class EquipmentType {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(name = "type_name")
+    @Column(name = "type_name", nullable = false, unique = true)
     private String name;
 
     @OneToMany(mappedBy = "equipmentTypeOfEquip",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Equipment> equipmentList;
+    private Set<Equipment> equipmentList;
 
     @OneToMany(mappedBy = "equipmentTypeOfSpec", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Specification> specificationList;
+    private Set<Specification> specificationList;
 }
