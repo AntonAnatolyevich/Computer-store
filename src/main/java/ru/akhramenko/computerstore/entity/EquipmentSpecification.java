@@ -1,4 +1,4 @@
-package ru.akhramenko.computerstore.model;
+package ru.akhramenko.computerstore.entity;
 
 import jakarta.persistence.*;
 import java.util.UUID;

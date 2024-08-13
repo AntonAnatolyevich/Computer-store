@@ -1,9 +1,9 @@
-package ru.akhramenko.computerstore.model;
+package ru.akhramenko.computerstore.entity;
 
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 import lombok.*;
 
@@ -22,7 +22,7 @@ public class Equipment {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "type_id", nullable = true)
-    private EquipmentType equipmentTypeOfEquip;
+    private EquipmentType equipmentType;
 
     @Column(name = "developer_name")
     private String devName;
@@ -34,5 +34,5 @@ public class Equipment {
     private Date addedAt;
 
     @OneToMany(mappedBy = "equipment", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<EquipmentSpecification> equipmentSpecificationsList;
+    private Set<EquipmentSpecification> equipmentSpecificationsList;
 }

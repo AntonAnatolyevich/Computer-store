@@ -1,7 +1,7 @@
-package ru.akhramenko.computerstore.model;
+package ru.akhramenko.computerstore.entity;
 
 import jakarta.persistence.*;
-import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,7 +21,7 @@ public class Specification {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "type_id", nullable = true)
     private EquipmentType equipmentTypeOfSpec;
 
@@ -29,5 +29,5 @@ public class Specification {
     private String name;
 
     @OneToMany(mappedBy = "specification", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<EquipmentSpecification> equipmentSpecificationsList;
+    private Set<EquipmentSpecification> equipmentSpecificationsList;
 }
