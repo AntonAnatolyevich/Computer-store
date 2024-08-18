@@ -3,7 +3,6 @@ package ru.akhramenko.computerstore.service;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,7 +10,7 @@ import ru.akhramenko.computerstore.dto.equipment.EquipmentRequest;
 import ru.akhramenko.computerstore.dto.equipment.EquipmentResponse;
 import ru.akhramenko.computerstore.entity.Equipment;
 import ru.akhramenko.computerstore.repo.EquipmentRepo;
-import ru.akhramenko.computerstore.utils.exception.EquipmentNotFoundException;
+import ru.akhramenko.computerstore.utils.exception.ResourceNotFoundException;
 import ru.akhramenko.computerstore.utils.mapper.EquipmentMapper;
 
 @Service
@@ -29,8 +28,15 @@ public class EquipmentService {
     }
 
     public EquipmentResponse findById(UUID id) {
-        Equipment equipment = equipmentRepo.findById(id).orElseThrow(() -> new EquipmentNotFoundException(id));
+        Equipment equipment = equipmentRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
         return equipmentMapper.toEquipmentResponse(equipment);
+    }
+
+    @Transactional
+    public List<EquipmentResponse> findEquipmentsByType(UUID id) {
+        return equipmentRepo.findEquipmentsByType(id).stream()
+                .map(equipmentMapper::toEquipmentResponse)
+                .collect(Collectors.toList());
     }
 
     @Transactional
@@ -42,7 +48,7 @@ public class EquipmentService {
 
     @Transactional
     public EquipmentResponse update(UUID id, EquipmentRequest equipmentRequest) {
-       Equipment existingEquipment = equipmentRepo.findById(id).orElseThrow(() -> new EquipmentNotFoundException(id));
+       Equipment existingEquipment = equipmentRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
        Equipment updatedEquipment = equipmentMapper.toEquipment(equipmentRequest);
        updatedEquipment.setId(existingEquipment.getId());
        equipmentRepo.save(updatedEquipment);
